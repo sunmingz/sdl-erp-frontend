@@ -12,7 +12,7 @@ export default defineConfig({
   define: {
     'process.env': {
       NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'development'),
-      VUE_APP_BASE_API: JSON.stringify('/api')
+      VUE_APP_BASE_API: '/api'
     }
   },
   server: {

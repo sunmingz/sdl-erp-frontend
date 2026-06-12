@@ -112,7 +112,7 @@ import { useRouter } from 'vue-router'
 import Sidebar from '../components/Sidebar.vue'
 import Header from '../components/Header.vue'
 import { getMenuTree, createMenu, updateMenu, deleteMenu as deleteMenuApi } from '../api/menu'
-import { ElMessage } from 'element-plus'
+import { ElMessage, ElMessageBox } from 'element-plus'
 
 const router = useRouter()
 const menuTree = ref([])
@@ -168,12 +168,13 @@ const form = reactive({
 const loadMenuTree = async () => {
   try {
     const response = await getMenuTree()
-    if (response.code === 200) {
-      menuTree.value = response.data
-      menuList.value = flattenMenuTree(response.data)
+    if (response && (response.code === 200 || response.success)) {
+      menuTree.value = response.data || response.result || []
+      menuList.value = flattenMenuTree(menuTree.value)
     }
   } catch (error) {
     ElMessage.error('加载菜单树失败')
+    console.error('加载菜单失败:', error)
   }
 }
 
@@ -216,12 +217,15 @@ const deleteMenu = async (id) => {
   if (await ElMessageBox.confirm('确定要删除该菜单吗？', '提示', { type: 'warning' })) {
     try {
       const response = await deleteMenuApi(id)
-      if (response.code === 200) {
+      if (response && (response.code === 200 || response.success)) {
         ElMessage.success('删除成功')
         loadMenuTree()
+      } else {
+        ElMessage.error('删除失败')
       }
     } catch (error) {
       ElMessage.error('删除失败')
+      console.error('删除菜单失败:', error)
     }
   }
 }
@@ -234,14 +238,17 @@ const saveMenu = async () => {
     } else {
       response = await createMenu(form)
     }
-    if (response.code === 200) {
+    if (response && (response.code === 200 || response.success)) {
       ElMessage.success(form.id ? '更新成功' : '创建成功')
       showAddDialog.value = false
       resetForm()
       loadMenuTree()
+    } else {
+      ElMessage.error(form.id ? '更新失败' : '创建失败')
     }
   } catch (error) {
     ElMessage.error(form.id ? '更新失败' : '创建失败')
+    console.error('保存菜单失败:', error)
   }
 }
 
