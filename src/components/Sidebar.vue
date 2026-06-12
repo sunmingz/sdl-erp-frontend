@@ -9,10 +9,6 @@
           <span class="menu-icon">📊</span>
           <span>仪表盘</span>
         </el-menu-item>
-        <el-menu-item index="/user">
-          <span class="menu-icon">👤</span>
-          <span>用户管理</span>
-        </el-menu-item>
         <el-menu-item index="/order">
           <span class="menu-icon">📦</span>
           <span>订单管理</span>
@@ -33,22 +29,28 @@
           <span class="menu-icon">💰</span>
           <span>财务管理</span>
         </el-menu-item>
-        <el-menu-item index="/department">
-          <span class="menu-icon">🏢</span>
-          <span>部门管理</span>
-        </el-menu-item>
-        <el-menu-item index="/menu">
-          <span class="menu-icon">📋</span>
-          <span>菜单管理</span>
-        </el-menu-item>
-        <el-menu-item index="/role">
-          <span class="menu-icon">🎭</span>
-          <span>角色管理</span>
-        </el-menu-item>
-        <el-menu-item index="/bom">
-          <span class="menu-icon">📝</span>
-          <span>BOM管理</span>
-        </el-menu-item>
+        <el-sub-menu index="/system">
+          <template #title>
+            <span class="menu-icon">⚙️</span>
+            <span>系统管理</span>
+          </template>
+          <el-menu-item index="/user">
+            <span class="menu-icon">👤</span>
+            <span>用户管理</span>
+          </el-menu-item>
+          <el-menu-item index="/department">
+            <span class="menu-icon">🏢</span>
+            <span>部门管理</span>
+          </el-menu-item>
+          <el-menu-item index="/menu">
+            <span class="menu-icon">📋</span>
+            <span>菜单管理</span>
+          </el-menu-item>
+          <el-menu-item index="/role">
+            <span class="menu-icon">🎭</span>
+            <span>角色管理</span>
+          </el-menu-item>
+        </el-sub-menu>
         <el-menu-item index="/route">
           <span class="menu-icon">🛣️</span>
           <span>工艺路线</span>
