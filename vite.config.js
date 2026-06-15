@@ -3,6 +3,7 @@ import vue from '@vitejs/plugin-vue'
 import { resolve } from 'path'
 
 export default defineConfig({
+  base: '/sdl-erp-frontend/',
   plugins: [vue()],
   resolve: {
     alias: {
